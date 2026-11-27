@@ -26,17 +26,19 @@ resource "aws_iam_role" "mysql" {
 }
 
 resource "aws_iam_policy" "mysql" {
-  name        = "${var.project}-${var.environment}-mysql"
-  description = "IAM policy to attach roboshop mysql instances"
+  name        ="${local.common_tags.name}-mysql"
+ 
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = templatefile("${path.module}/mysql-policy.json.tftpl"){
+  policy = templatefile("${path.module}/mysql-policy.json.tftpl",{
     account_id = local.account_id
-    project = ${var.project}
-    environment = ${var.environmrnt}
+    project = var.project
+    environment = var.environmrnt
+})
 }
-tags = merge(
+
+tags = merge{(
     local.common_tags,
     {
         Name = "${var.project}-${var.environment}-mysql"
