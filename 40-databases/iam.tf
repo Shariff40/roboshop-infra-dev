@@ -36,15 +36,15 @@ resource "aws_iam_policy" "mysql" {
     project = var.project
     environment = var.environmrnt
 })
-}
 
-tags = merge{(
+  tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-${var.environment}-mysql"
+        Name = "${local.common_tags.name}-mysql"
     }
   )
 }
+
 
 resource "aws_iam_role_policy_attachment" "mysql" {
   role       = aws_iam_role.mysql.name
