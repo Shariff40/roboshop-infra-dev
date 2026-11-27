@@ -20,7 +20,7 @@ resource "aws_iam_role" "mysql" {
   tags = merge(
     local.common_tags,
     {
-        name = "${var.project}-${var.environment}-mysql"
+        Name = "${var.project}-${var.environment}-mysql"
     }
   )
 }
@@ -31,7 +31,27 @@ resource "aws_iam_policy" "mysql" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = file("mysql-policy.json")
+  policy = templatefile("${path.module}/mysql-policy.json.tftpl"){
+    account_id = local.account_id
+    project = ${var.project}
+    environment = ${var.environmrnt}
+}
+tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-mysql"
+    }
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "mysql" {
+  role       = aws_iam_role.mysql.name
+  policy_arn = aws_iam_policy.mysql.arn
+}
+
+resource "aws_iam_instance_profile" "mysql" {
+  name = "${var.project}-${var.environment}-mysql"
+  role = aws_iam_role.mysql.name
 }
 
 
