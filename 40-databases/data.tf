@@ -36,3 +36,7 @@ data "aws_ssm_parameter" "database_subnet_ids" {
 }
 
 data "aws_caller_identity" "current" {}
+
+data "aws_ssm_parameter" "bastion_sg_id" {
+  name = "/${var.project}/${var.environment}/bastion_sg_id"
+}
