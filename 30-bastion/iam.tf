@@ -1,5 +1,5 @@
 resource "aws_iam_role" "bastion" {
-  name = local.common_tags.name  #roboshop-dev-bastion
+  name = "${var.project}-${var.environment}-bastion" #roboshop-dev-bastion
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
