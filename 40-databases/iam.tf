@@ -34,7 +34,7 @@ resource "aws_iam_policy" "mysql" {
   policy = templatefile("${path.module}/mysql-policy.json.tftpl",{
     account_id = local.account_id
     project = var.project
-    environment = var.environmrnt
+    environment = var.environment
 })
 
   tags = merge(
