@@ -26,4 +26,10 @@ data "aws_ssm_parameter" "database_subnet_ids" {
   name = "/roboshop/dev/database_subnet_ids"
 }
 
+data "aws_ssm_parameter" "sg_id" {
+  name = "/roboshop/dev/bastion_sg_id"
+}
+data "aws_ssm_parameter" "bastion_sg_id" {
+  name = "/roboshop/dev/bastion_sg_id"
+}
 
