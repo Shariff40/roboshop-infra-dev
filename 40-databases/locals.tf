@@ -10,7 +10,7 @@ locals {
         project = var.project
         environment = var.environment
         terraform = "true"
-        name = "${var.project}-${var.environment}-mongodb"
+        Name = "${var.project}-${var.environment}-mongodb"
     }
     account_id = data.aws_caller_identity.current.account_id
  
